@@ -12,7 +12,7 @@
    <meta property="og:image" content="img/logo.png">
    <meta property="og:url" content="https://yourwebsite.com/api-grid-viewer">
    <meta property="og:type" content="website">
-    
+
    <!-- Favicon and Icons -->
    <link rel="icon" href="/img/logo.png" siszes="any" type="image/png">
    <link rel="icon" type="image/png" sizes="32x32" href="img/logo.png">
@@ -30,7 +30,6 @@
      #apigridviewer-app{display:flex;flex-direction:column;gap:20px;padding:20px;border-radius:10px;background-color:#f9f9f9;box-shadow:0px 4px 20px rgba(0,0,0,0.15);font-family:'Arial',sans-serif}.url-input{display:flex;gap:10px;width:100%;margin-top:20px}.full-width{width:100%}.auth-section,#params{display:flex;gap:10px;align-items:center}#params .param{display:flex;gap:5px;align-items:center}#response{margin-top:20px;height:auto;max-height:70vh;overflow-y:auto}.api-grid-about-card{background:#fff;border-radius:10px;box-shadow:0 4px 20px rgba(0,0,0,0.15);padding:30px;margin:0 auto;max-width:700px;text-align:left;font-family:'Arial',sans-serif}.api-grid-about-card h2{font-size:26px;margin-bottom:15px;color:#333}.api-grid-about-card p{font-size:18px;margin-bottom:12px;color:#555}.api-grid-about-card a{color:#FF6C37;text-decoration:none;font-weight:bold}.api-grid-about-card a:hover{text-decoration:underline;color:#0073aa}*{margin:0;padding:0;box-sizing:border-box}body{height:100vh;background-color:#f9f9f9;background-image:radial-gradient(circle,#ccc 1px,transparent 1px);background-size:20px 20px;background-position:center}@media (max-width:768px){#apigridviewer-app{padding:10px}.url-input{flex-direction:column}#send-request{width:100%}}
      .popup{display:none;position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);background:white;border:1px solid #ccc;border-radius:5px;padding:20px;box-shadow:0 4px 8px rgba(0,0,0,.1);z-index:1000;width:70%;}
         .overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.5);z-index:999;}
-        .close-popup{background-color:#FF813F;color:white;border:none;padding:10px 15px;border-radius:5px;cursor:pointer;}
         .info-icon{cursor:pointer;font-size:30px;color:#FF813F;margin-bottom:20px;} #cookieConsentOverlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);display:none;align-items:center;justify-content:center;z-index:1049;}#cookieConsentBox{padding:20px;background:#fff;border:1px solid #ddd;box-shadow:0 0 15px rgba(0,0,0,0.3);border-radius:8px;text-align:center;width:300px;}
     
     </style>
@@ -77,7 +76,7 @@
     <div id="cookieConsentOverlay">
         <div id="cookieConsentBox">
             <p>We use cookies to improve your experience. By continuing to visit this site, you agree to our use of cookies.</p>
-            <button class="btn btn-primary" onclick="acceptCookies()">Continue</button>
+            <button class="btn btn-outline-primary" onclick="acceptCookies()">Continue</button>
         </div>
     </div>
 <!-- JavaScript Section -->
@@ -305,13 +304,13 @@ $('#params').on('click', '.remove-param', function() {
         const overlay = $('<div class="overlay"></div>').appendTo('body');
         const popup = $(`
             <div class="popup">
-               <p><strong>Author:</strong> Gladwin GT</p>
+               <p><strong>Developer:</strong> Gladwin GT</p>
     <p><strong>Website:</strong> <a href="https://geegeetech.site" target="_blank">geegeetech.site</a></p>
     <p><strong>Email:</strong> <a href="mailto:geegeetech.com@gmail.com">geegeetech.com@gmail.com</a></p>
     <p>API Grid Viewer is a straightforward web tool designed for developers to test REST APIs effortlessly, offering clean table and grid views for quick visualization. The tool runs entirely in-browser using simple jQuery, ensuring no API data is stored, enhancing both simplicity and security. Key features include support for multiple authentication methods, dynamic parameter management, and a responsive search function to streamline data handling.</p>
     <p>Need custom web tools or help with API integrations? Feel free to reach out at <a href="mailto:geegeetech.com@gmail.com">geegeetech.com@gmail.com</a>.</p>
 
-                <button class="close-popup">Close</button>
+                <button class="close-popup btn btn-outline-dark">Close</button>
             </div>
         `).appendTo('body');
 
