@@ -170,10 +170,10 @@ $('#params').on('click', '.remove-param', function() {
                         headers['Authorization'] = 'Basic ' + btoa($('#username').val() + ':' + $('#password').val());
                         break;
                 }
-
-                // Perform the GET request with parameters and headers
+                
+                const proxyUrl = 'https://api.geegeetech-com.workers.dev?url=';
                 $.ajax({
-                    url: url, // API endpoint
+                    url: proxyUrl+url, // API endpoint
                     method: 'GET',
                     headers: headers, // Include headers for authentication
                     data: params, // Include parameters in the request
