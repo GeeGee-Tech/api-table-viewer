@@ -118,14 +118,12 @@
 // Add new parameter input fields with Bootstrap styling
 $('#add-param').on('click', function() {
     $('#params').append(`
-        <div class="form-group d-flex mb-2">
-            <input type="text" class="form-control me-2" placeholder="Key" style="max-width: 200px;" />
-            <input type="text" class="form-control me-2" placeholder="Value" style="max-width: 200px;" />
-            <button class="btn btn-outline-danger remove-param">
- &#10006;            </button>
+        <div class="form-group d-flex mb-2 param">
+            <input type="text" class="form-control me-2 param-key" placeholder="Key" style="max-width: 200px;" />
+            <input type="text" class="form-control me-2 param-value" placeholder="Value" style="max-width: 200px;" />
+            <button class="btn btn-outline-danger remove-param">&#10006;</button>
         </div>`);
-});
-
+})
 
 // Remove parameter on button click
 $('#params').on('click', '.remove-param', function() {
@@ -151,12 +149,11 @@ $('#params').on('click', '.remove-param', function() {
                 let params = {};
 
                 // Collect parameters from input fields
-                $('.param').each(function() {
+                $('#params').each(function() {
                     let key = $(this).find('.param-key').val();
                     let value = $(this).find('.param-value').val();
                     if (key && value) params[key] = value;
                 });
-
                 // Collect headers based on authentication type
                 let authType = $('#auth-type').val();
                 let headers = {};
@@ -171,13 +168,15 @@ $('#params').on('click', '.remove-param', function() {
                         headers['Authorization'] = 'Basic ' + btoa($('#username').val() + ':' + $('#password').val());
                         break;
                 }
-                
+                const queryString = $.param(params);
+
                 const proxyUrl = 'https://api.geegeetech-com.workers.dev?url=';
                 $.ajax({
-                    url: proxyUrl+url, // API endpoint
+                url: proxyUrl + url + (url.includes('?') ? '&' : '?') + $.param(params),
+
                     method: 'GET',
                     headers: headers, // Include headers for authentication
-                    data: params, // Include parameters in the request
+                    //data: params, // Include parameters in the request
                     success: function(response) {
                         try {
                             let jsonData = typeof response === 'string' ? JSON.parse(response) : response;
@@ -185,7 +184,7 @@ $('#params').on('click', '.remove-param', function() {
                             $('#response').html(tableHtml);
                             $('#search-bar').show();
                             $('#download-buttons').show();
-
+console.table(url);
                             // Handle JSON download
                             $('#download-json').on('click', function() {
                                 downloadJSON(jsonData, 'data.json');
