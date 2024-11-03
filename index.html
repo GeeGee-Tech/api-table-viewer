@@ -1,353 +1,185 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>API Grid Viewer</title>
-   <meta name="description" content="API Grid Viewer is a powerful tool for viewing and testing APIs, featuring an intuitive grid/table layout for seamless navigation.">
-   <meta name="keywords" content="API Grid Viewer, API Table Viewer, API Tester, Postman alternative, REST API Viewer, JSON API Viewer, API tool, table and grid views">
-   <meta name="author" content="Gladwin GT">
-   <meta property="og:title" content="API Grid Viewer">
-   <meta property="og:description" content="Effortlessly explore APIs with our intuitive grid/table view. Ideal for developers and testers.">
-   <meta property="og:url" content="https://apigridviewer.site">
-   <meta property="og:type" content="website">
-    <meta property="og:image" content="https://apigridviewer.site/img/logo.png">
-    <meta property="og:image:width" content="200">
-    <meta property="og:image:height" content="200">
-   <!-- Favicon and Icons -->
-   <link rel="icon" href="img/logo.png" siszes="any" type="image/png">
-   <link rel="icon" type="image/png" sizes="32x32" href="img/logo.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="img/logo.png">
-    <link rel="apple-touch-icon" sizes="32x32" href="img/logo.png">
-<link rel="apple-touch-icon" sizes="76x76" href="img/logo.png">
-<link rel="apple-touch-icon" sizes="120x120" href="img/logo.png">
-<link rel="apple-touch-icon" sizes="152x152" href="img/logo.png">
-    <link rel="mask-icon" href="img/logo.png" color="#5bbad5">
-    <link rel="shortcut icon" href="img/logo.png">
-    <meta name="msapplication-TileColor" content="#da532c">
+    <meta
+      name="description"
+      content="API Grid Viewer is a powerful tool for viewing and testing APIs, featuring an intuitive grid/table layout for seamless navigation."
+    />
+    <meta
+      name="keywords"
+      content="API Grid Viewer, API Table Viewer, API Tester, Postman alternative, REST API Viewer, JSON API Viewer, API tool, table and grid views"
+    />
+    <meta name="author" content="Gladwin GT" />
+    <meta property="og:title" content="API Grid Viewer" />
+    <meta
+      property="og:description"
+      content="Effortlessly explore APIs with our intuitive grid/table view. Ideal for developers and testers."
+    />
+    <meta property="og:url" content="https://apigridviewer.site" />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:image"
+      content="https://apigridviewer.site/img/logo.png"
+    />
+    <meta property="og:image:width" content="200" />
+    <meta property="og:image:height" content="200" />
+    <link rel="icon" href="img/logo.png" siszes="any" type="image/png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="img/logo.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="img/logo.png" />
+    <link rel="apple-touch-icon" sizes="32x32" href="img/logo.png" />
+    <link rel="apple-touch-icon" sizes="76x76" href="img/logo.png" />
+    <link rel="apple-touch-icon" sizes="120x120" href="img/logo.png" />
+    <link rel="apple-touch-icon" sizes="152x152" href="img/logo.png" />
+    <link rel="mask-icon" href="img/logo.png" color="#5bbad5" />
+    <link rel="shortcut icon" href="img/logo.png" />
+    <meta name="msapplication-TileColor" content="#da532c" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-    <style>
-     #apigridviewer-app{display:flex;flex-direction:column;gap:20px;padding:20px;border-radius:10px;background-color:#f9f9f9;box-shadow:0px 4px 20px rgba(0,0,0,0.15);font-family:'Arial',sans-serif}.url-input{display:flex;gap:10px;width:100%;margin-top:20px}.full-width{width:100%}.auth-section,#params{display:flex;gap:10px;align-items:center}#params .param{display:flex;gap:5px;align-items:center}#response{margin-top:20px;height:auto;max-height:70vh;overflow-y:auto}.api-grid-about-card{background:#fff;border-radius:10px;box-shadow:0 4px 20px rgba(0,0,0,0.15);padding:30px;margin:0 auto;max-width:700px;text-align:left;font-family:'Arial',sans-serif}.api-grid-about-card h2{font-size:26px;margin-bottom:15px;color:#333}.api-grid-about-card p{font-size:18px;margin-bottom:12px;color:#555}.api-grid-about-card a{color:#FF6C37;text-decoration:none;font-weight:bold}.api-grid-about-card a:hover{text-decoration:underline;color:#0073aa}*{margin:0;padding:0;box-sizing:border-box}body{height:100vh;background-color:#f9f9f9;background-image:radial-gradient(circle,#ccc 1px,transparent 1px);background-size:20px 20px;background-position:center}@media (max-width:768px){#apigridviewer-app{padding:10px}.url-input{flex-direction:column}#send-request{width:100%}}
-     .popup{display:none;position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);background:white;border:1px solid #ccc;border-radius:5px;padding:20px;box-shadow:0 4px 8px rgba(0,0,0,.1);z-index:1000;width:70%;}
-        .overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.5);z-index:999;}
-        .info-icon{cursor:pointer;font-size:30px;color:#FF813F;margin-bottom:20px;} #cookieConsentOverlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);display:none;align-items:center;justify-content:center;z-index:1049;}#cookieConsentBox{padding:20px;background:#fff;border:1px solid #ddd;box-shadow:0 0 15px rgba(0,0,0,0.3);border-radius:8px;text-align:center;width:300px;}
-    
-    </style>
-
-    </style>
     <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-B8XFSCY8JT"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-B8XFSCY8JT"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
 
-  gtag('config', 'G-B8XFSCY8JT');
-</script>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    
-</head>
-<body>
+      gtag("config", "G-B8XFSCY8JT");
+    </script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="includes/apigridviewer.css" />
+    <script src="includes/apigridviewer.js"></script>
+  </head>
+  <body>
     <div class="wrap container mt-4">
-        <div id="apigridviewer-app" class="bg-light p-4 rounded shadow">
-            <h1 class="mb-4">API Grid Viewer</h1>
-    
-            <div class="url-input mb-3">
-                <input type="text" id="url" placeholder="Enter API URL" class="mac-input form-control" />
-                <button id="send-request" class="mac-button btn btn-outline-dark">Send</button>
-            </div>
-    
-            <div class="auth-section row mb-3">
-                <div class="col-md-3">
-                    <select id="auth-type" class="form-select form-control">
-                        <option value="none">None</option>
-                        <option value="key">Key</option>
-                        <option value="bearer">Bearer Code</option>
-                        <option value="basic">Basic (User/Password)</option>
-                    </select>
-                </div>
-                <div id="auth-fields" class="col-md-6"></div>
-            </div>
-            
-    
-            <div id="params" class="mb-3">
-                <button id="add-param" class="mac-button btn btn-outline-dark">Add Parameter</button>
-            </div>
-    
-            <input type="text" id="search-bar" placeholder="Search Table" class="mac-input form-control mb-3" style="display: none;" />
-            
-            <div id="response" class="mb-3"></div>
-    
-            <div id="download-buttons" style="display:none;">
-                <button id="download-json" class="mac-button btn btn-outline-success">Download JSON</button>
-            </div>
+      <div id="apigridviewer-app" class="bg-light p-4 rounded shadow">
+        <h1 class="mb-4">API Grid Viewer</h1>
+        <div data-tf-live="01JBND40TEYRN0EMZCXR5BRB4S"></div>
+        <script src="https://embed.typeform.com/next/embed.js"></script>
+        <div class="url-input mb-3">
+          <input
+            type="text"
+            id="url"
+            placeholder="Enter API URL"
+            class="mac-input form-control"
+          />
+          <button id="send-request" class="mac-button btn btn-outline-dark">
+            Send
+          </button>
         </div>
+
+        <div class="auth-section row mb-3">
+          <div class="col-md-3">
+            <select id="auth-type" class="form-select form-control">
+              <option value="none">None</option>
+              <option value="key">Key</option>
+              <option value="bearer">Bearer Code</option>
+              <option value="basic">Basic (User/Password)</option>
+            </select>
+          </div>
+          <div id="auth-fields" class="col-md-6"></div>
+        </div>
+
+        <div id="params" class="mb-3">
+          <button id="add-param" class="mac-button btn btn-outline-dark">
+            Add Parameter
+          </button>
+        </div>
+
+        <input
+          type="text"
+          id="search-bar"
+          placeholder="Search Table"
+          class="mac-input form-control mb-3"
+          style="display: none"
+        />
+
+        <div id="response" class="mb-3"></div>
+
+        <div id="download-buttons" style="display: none">
+          <button id="download-json" class="mac-button btn btn-outline-success">
+            Download JSON
+          </button>
+        </div>
+      </div>
     </div>
     <div id="cookieConsentOverlay">
-        <div id="cookieConsentBox">
-            <p>We use cookies to improve your experience. By continuing to visit this site, you agree to our use of cookies.</p>
-            <button class="btn btn-outline-primary" onclick="acceptCookies()">Continue</button>
-        </div>
+      <div id="cookieConsentBox">
+        <p>
+          We use cookies to improve your experience. By continuing to visit this
+          site, you agree to our use of cookies.
+        </p>
+        <button class="btn btn-outline-primary" onclick="acceptCookies()">
+          Continue
+        </button>
+      </div>
     </div>
-<!-- JavaScript Section -->
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        if (!localStorage.getItem('cookieConsent')) {
-            setTimeout(() => {
-                document.getElementById('cookieConsentOverlay').style.display = 'flex';
-            }, 3000); // Show popup after 5 seconds
-        }
-  
-        jQuery(document).ready(function($) {
-            // Handle authentication type change
-            $('#auth-type').on('change', function() {
-    let value = $(this).val();
-    let fields = '';
+    <div id="loadingOverlay" class="loading-overlay" style="display: none">
+      <div class="spinner-border" role="status"></div>
+    </div>
 
-    if (value === 'key') {
-        fields += `
-            <div class="form-group">
-                <input type="text" id="api-key" placeholder="API Key" class="form-control" maxlength="256" style="max-width: 500px;" />
-            </div>`;
-    } else if (value === 'bearer') {
-        fields += `
-            <div class="form-group">
-                <input type="text" id="bearer-token" placeholder="Bearer Token" class="form-control" maxlength="256" style="max-width: 400px;" />
-            </div>`;
-    } else if (value === 'basic') {
-        fields += `
-            <div class="form-group">
-                <input type="text" id="username" placeholder="Username" class="form-control mb-2" style="max-width: 400px;" />
-                <input type="password" id="password" placeholder="Password" class="form-control" style="max-width: 400px;" />
-            </div>`;
-    }
-    $('#auth-fields').html(fields);
-});
-
-// Add new parameter input fields with Bootstrap styling
-$('#add-param').on('click', function() {
-    $('#params').append(`
-        <div class="form-group d-flex mb-2 param">
-            <input type="text" class="form-control me-2 param-key" placeholder="Key" style="max-width: 200px;" />
-            <input type="text" class="form-control me-2 param-value" placeholder="Value" style="max-width: 200px;" />
-            <button class="btn btn-outline-danger remove-param">&#10006;</button>
-        </div>`);
-})
-
-// Remove parameter on button click
-$('#params').on('click', '.remove-param', function() {
-    $(this).closest('.form-group').remove();
-});
-
-
-            // Remove parameter input fields
-            $('#params').on('click', '.remove-param', function() {
-                $(this).parent().remove();
-            });
-
-            // Handle pressing Enter key to send request
-            $('#url').on('keypress', function(event) {
-                if (event.key === 'Enter') {
-                    $('#send-request').click(); // Simulate button click
-                }
-            });
-
-            // Send request when button is clicked
-            $('#send-request').on('click', function() {
-                let url = $('#url').val(); // Your API endpoint
-                let params = {};
-
-                // Collect parameters from input fields
-                $('#params').each(function() {
-                    let key = $(this).find('.param-key').val();
-                    let value = $(this).find('.param-value').val();
-                    if (key && value) params[key] = value;
-                });
-                // Collect headers based on authentication type
-                let authType = $('#auth-type').val();
-                let headers = {};
-                switch (authType) {
-                    case 'key':
-                        headers['Authorization'] = $('#api-key').val();
-                        break;
-                    case 'bearer':
-                        headers['Authorization'] = 'Bearer ' + $('#bearer-token').val();
-                        break;
-                    case 'basic':
-                        headers['Authorization'] = 'Basic ' + btoa($('#username').val() + ':' + $('#password').val());
-                        break;
-                }
-                const queryString = $.param(params);
-
-                const proxyUrl = 'https://api.geegeetech-com.workers.dev?url=';
-                $.ajax({
-                url: proxyUrl + url + (url.includes('?') ? '&' : '?') + $.param(params),
-
-                    method: 'GET',
-                    headers: headers, // Include headers for authentication
-                    //data: params, // Include parameters in the request
-                    success: function(response) {
-                        try {
-                            let jsonData = typeof response === 'string' ? JSON.parse(response) : response;
-                            let tableHtml = generateTable(jsonData);
-                            $('#response').html(tableHtml);
-                            $('#search-bar').show();
-                            $('#download-buttons').show();
-console.table(url);
-                            // Handle JSON download
-                            $('#download-json').on('click', function() {
-                                downloadJSON(jsonData, 'data.json');
-                            });
-                        } catch (e) {
-                            $('#response').html('<pre>' + JSON.stringify(jsonData, null, 2) + '</pre>');
-                            $('#search-bar').hide();                        }
-                    },
-                    error: function(xhr) {
- // If parsing fails, display the response as text
- $('#response').html('<pre>' + $(response).html() + '</pre>');
- $('#search-bar').hide();                         }
-                });
-            });
-
-                // Generate HTML table from JSON data
-                function generateTable(data) {
-                    if (!Array.isArray(data) && data !== null && data !== undefined) {
-                        data = [data];
-                    }
-                    let table = '<table border="1" cellspacing="0" cellpadding="5" class="mac-table full-width" style="table-layout: auto; width: 100%; max-height: 500px !important;">';
-                    table += '<thead><tr>';
-                    if (data.length > 0) {
-                        Object.keys(flattenObject(data[0] || {})).forEach(function(key) {
-                            table += '<th style="white-space: nowrap; padding: 10px; text-align: left; border-bottom: 1px solid #ddd;">' + key + '</th>';
-                        });
-                    }
-                    table += '</tr></thead><tbody>';
-                    data.forEach(function(row) {
-                        row = flattenObject(row);
-                        table += '<tr>';
-                        Object.values(row).forEach(function(value) {
-                            if (value === null || value === '' || value === undefined) {
-                                table += '<td style="padding: 10px; border-bottom: 1px solid #ddd;">null</td>';
-                            } else if (Array.isArray(value)) {
-                                table += '<td style="position: relative; padding: 10px; border-bottom: 1px solid #ddd;">';
-                                if (value.length > 0) {
-                                    table += '<button class="expand-button mac-button btn btn-secondary" data-expanded="false">+</button><div class="nested-table full-width" style="display:none; margin-top: 10px; background: #fff; box-shadow: 0 4px 8px rgba(0,0,0,0.1); overflow: auto; max-height:500px;">' + generateTable(value) + '</div>';
-                                } else {
-                                    table += 'null';
-                                }
-                                table += '</td>';
-                            } else if (typeof value === 'object' && value !== null) {
-                                table += '<td style="padding: 10px; border-bottom: 1px solid #ddd;">' + JSON.stringify(value) + '</td>';
-                            } else {
-                                table += '<td style="padding: 10px; border-bottom: 1px solid #ddd;">' + value + '</td>';
-                            }
-                        });
-                        table += '</tr>';
-                    });
-                    table += '</tbody></table>';
-                    return table;
-                }
-
-                // Flatten nested objects
-                function flattenObject(obj, parent = '', res = {}) {
-                    for (let key in obj) {
-                        if (obj.hasOwnProperty(key)) {
-                            let propName = parent ? parent + '.' + key : key;
-                            if (typeof obj[key] === 'object' && !Array.isArray(obj[key]) && obj[key] !== null) {
-                                flattenObject(obj[key], propName, res);
-                            } else {
-                                res[propName] = obj[key];
-                            }
-                        }
-                    }
-                    return res;
-                }
-
-                // Expand/collapse nested tables
-                $('#response').on('click', '.expand-button', function() {
-                    let $nestedTable = $(this).siblings('.nested-table');
-                    if ($(this).attr('data-expanded') === 'false') {
-                        if ($nestedTable.find('table tbody tr').length > 0) {
-                            $nestedTable.css('position', 'relative').css('top', '10px').show();
-                            $(this).attr('data-expanded', 'true');
-                        }
-                    } else {
-                        $nestedTable.hide();
-                        $(this).attr('data-expanded', 'false');
-                    }
-                });
-
-            // Search functionality for table
-            $('#search-bar').on('keyup', function() {
-                let value = $(this).val().toLowerCase();
-                $('#response tbody tr').each(function() {
-                    let matchFound = $(this).text().toLowerCase().indexOf(value) > -1;
-                    $(this).toggle(matchFound);
-                    if (matchFound) {
-                        $(this).find('.expand-button').each(function() {
-                            let $nestedTable = $(this).siblings('.nested-table');
-                            if ($nestedTable.find('table tbody tr').length > 0) {
-                                $nestedTable.show();
-                                $(this).attr('data-expanded', 'true');
-                            }
-                        });
-                    }
-                });
-            });
-
-            // Function to download JSON data
-            function downloadJSON(data, filename) {
-                const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-                const link = document.createElement('a');
-                link.href = URL.createObjectURL(blob);
-                link.download = filename;
-                link.click();
-            }
-        });
-        
-    });
-</script>
-<script>
-    $(function() {
-        const infoIcon = $('<span class="info-icon">&#9432;</span> ').appendTo('body');
-        const overlay = $('<div class="overlay"></div>').appendTo('body');
-        const popup = $(`
-            <div class="popup">
-               <p><strong>Developer:</strong> Gladwin GT</p>
-    <p><strong>Website:</strong> <a href="https://geegeetech.site" target="_blank">geegeetech.site</a></p>
-    <p><strong>Email:</strong> <a href="mailto:geegeetech.com@gmail.com">geegeetech.com@gmail.com</a></p>
-    <p>API Grid Viewer is a straightforward web tool designed for developers to test REST APIs effortlessly, offering clean table and grid views for quick visualization. The tool runs entirely in-browser using simple jQuery, ensuring no API data is stored, enhancing both simplicity and security. Key features include support for multiple authentication methods, dynamic parameter management, and a responsive search function to streamline data handling.</p>
-    <p>Need custom web tools or help with API integrations? Feel free to reach out at <a href="mailto:geegeetech.com@gmail.com">geegeetech.com@gmail.com</a>.</p>
-
-                <button class="close-popup btn btn-outline-dark">Close</button>
-            </div>
-        `).appendTo('body');
-
-        infoIcon.on('click', function() {
-            popup.fadeIn();
-            overlay.fadeIn();
-        });
-
-        overlay.on('click', function() {
-            popup.fadeOut();
-            overlay.fadeOut();
-        });
-
-        popup.find('.close-popup').on('click', function() {
-            popup.fadeOut();
-            overlay.fadeOut();
-        });
-    });
-    function acceptCookies() {
-        localStorage.setItem('cookieConsent', 'accepted');
-        document.getElementById('cookieConsentOverlay').style.display = 'none';
-    }
-</script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
-<script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="gladwingt" data-description="Support me on Buy me a coffee!" data-message="I appreciate the support. it truly keeps me motivated!" data-color="#FF813F" data-position="Right" data-x_margin="18" data-y_margin="18"></script>
-    
-</body>
+    <div aria-live="polite" aria-atomic="true" style="position: relative">
+      <div class="toast-container position-fixed top-0 end-0 p-3">
+        <div
+          id="successToast"
+          class="toast"
+          role="alert"
+          aria-live="assertive"
+          aria-atomic="true"
+        >
+          <div class="toast-header">
+            <strong class="me-auto">Success</strong>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="toast"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="toast-body">Your request was successful!</div>
+        </div>
+        <div
+          id="errorToast"
+          class="toast"
+          role="alert"
+          aria-live="assertive"
+          aria-atomic="true"
+        >
+          <div class="toast-header">
+            <strong class="me-auto">Error</strong>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="toast"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="toast-body">An error occurred during your request.</div>
+        </div>
+      </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <script
+      data-name="BMC-Widget"
+      data-cfasync="false"
+      src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js"
+      data-id="gladwingt"
+      data-description="Support me on Buy me a coffee!"
+      data-message="I appreciate the support. it truly keeps me motivated!"
+      data-color="#FF813F"
+      data-position="Right"
+      data-x_margin="18"
+      data-y_margin="18"
+    ></script>
+  </body>
 </html>
